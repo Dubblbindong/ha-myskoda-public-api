@@ -1,6 +1,7 @@
 {
   "domain": "myskoda_public_api",
   "name": "MyŠkoda Public API",
+  "categories": ["vehicles_transport.cars_evs"],
   "codeowners": ["@Dubblbindong"],
   "config_flow": true,
   "dependencies": [],
