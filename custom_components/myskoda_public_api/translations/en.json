@@ -46,14 +46,14 @@
     "step": {
       "init": {
         "title": "MyŠkoda options",
-        "description": "The API allows about 20 requests per hour and vehicle. Every poll, every remote command and the refresh after a command count against that quota. S-PIN: {spin_state}.",
+        "description": "The API allows about 20 requests per hour and vehicle. Every poll is one request. Every remote command costs two: the command and a refresh 15 seconds later; if the vehicle has not reported by then, a second refresh follows after 60 seconds, so three. Example: 240 s means data every 4 minutes and 15 requests for polling, leaving 5 for one or two commands. Each request spent on a command removes 4 minutes of data at the end of the hour. S-PIN: {spin_state}.",
         "data": {
           "scan_interval": "Polling interval",
           "spin": "S-PIN (for the auxiliary heater)",
           "remove_spin": "Remove the stored S-PIN"
         },
         "data_description": {
-          "scan_interval": "Seconds between two polls. 300 s equals 12 requests per hour.",
+          "scan_interval": "Seconds between two polls. Default 900 s (15 minutes, 4 requests per hour), minimum 240 s.",
           "spin": "Only needed to start the auxiliary heater. Leave empty to keep the stored S-PIN."
         }
       }

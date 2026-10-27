@@ -77,23 +77,38 @@ same key works if it covers both vehicles.
 
 <table border="1">
 <tr><th align="left">&nbsp;Option&nbsp;</th><th align="left">&nbsp;Default&nbsp;</th><th align="left">&nbsp;Notes&nbsp;</th></tr>
-<tr><td>&nbsp;Polling interval&nbsp;</td><td align="center">&nbsp;300 s&nbsp;</td><td>&nbsp;Minimum 240 s. See <i>Rate limits</i>.&nbsp;</td></tr>
+<tr><td>&nbsp;Polling interval&nbsp;</td><td align="center">&nbsp;900 s&nbsp;</td><td>&nbsp;15 minutes. Minimum 240 s. See <i>Rate limits</i>.&nbsp;</td></tr>
 <tr><td>&nbsp;S-PIN&nbsp;</td><td align="center">&nbsp;–&nbsp;</td><td>&nbsp;Only needed to start the auxiliary heater. Stored in the config entry.&nbsp;</td></tr>
 </table>
 
 ## Rate limits
 
-The API allows about **20 requests per hour and vehicle**. Every poll, every
-remote command and the refresh after a command count. The integration
+The API allows about **20 requests per hour and vehicle**, and everything
+counts against it:
 
-- polls every 5 minutes by default, that is 12 requests per hour,
-- reads the rate-limit headers and slows down when only two requests are
-  left,
-- waits as instructed by the API after a 429 response,
-- shows the remaining requests and the reset time as diagnostic sensors.
+- every poll is one request,
+- every remote command is **two requests**: the command itself and a refresh
+  15 seconds later. If the vehicle has not reported by then, a second
+  refresh follows after 60 seconds, so **three**,
+- every press of the *Refresh* button is one request.
 
-The *Refresh* button and every command use quota too, so avoid automations
-that poll or toggle something every minute.
+The default polling interval is **15 minutes**: 4 requests per hour, which
+leaves 16 for commands. You can shorten it in the options, down to 240
+seconds, but mind the budget:
+
+<table border="1">
+<tr><th align="left">&nbsp;Interval&nbsp;</th><th align="left">&nbsp;Polls per hour&nbsp;</th><th align="left">&nbsp;Left for commands&nbsp;</th><th align="left">&nbsp;Means&nbsp;</th></tr>
+<tr><td>&nbsp;900 s (default)&nbsp;</td><td align="center">4</td><td align="center">16</td><td>&nbsp;5 to 8 commands per hour&nbsp;</td></tr>
+<tr><td>&nbsp;600 s&nbsp;</td><td align="center">6</td><td align="center">14</td><td>&nbsp;4 to 7 commands per hour&nbsp;</td></tr>
+<tr><td>&nbsp;300 s&nbsp;</td><td align="center">12</td><td align="center">8</td><td>&nbsp;2 to 4 commands per hour&nbsp;</td></tr>
+<tr><td>&nbsp;240 s (minimum)&nbsp;</td><td align="center">15</td><td align="center">5</td><td>&nbsp;Data every 4 minutes, 1 to 2 commands; each request spent on a command removes 4 minutes of data at the end of the hour&nbsp;</td></tr>
+</table>
+
+When the quota runs low, the integration does not fail: it reads the
+rate-limit headers, stops polling when two requests are left and waits for
+the hour to reset, and after a 429 response it waits as long as the API
+asks. The remaining requests and the reset time are diagnostic sensors.
+Avoid automations that poll or toggle something every few minutes.
 
 ## Actions
 

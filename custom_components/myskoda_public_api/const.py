@@ -18,9 +18,11 @@ CONF_SCAN_INTERVAL: Final = "scan_interval"
 CONF_REMOVE_SPIN: Final = "remove_spin"
 
 # The API is rate-limited per VIN (20 requests per hour at the time of writing; the
-# RateLimit-* response headers are authoritative). 300 s polling = 12 requests/hour,
-# which leaves room for remote commands and the refresh that follows them.
-DEFAULT_SCAN_INTERVAL: Final = 300
+# RateLimit-* response headers are authoritative). 900 s polling = 4 requests/hour,
+# which leaves 16 for remote commands: a command costs two requests (the command
+# and the refresh 15 s later), three when a second refresh after 60 s is needed.
+# At the minimum of 240 s polling alone uses 15 of the 20 requests.
+DEFAULT_SCAN_INTERVAL: Final = 900
 MIN_SCAN_INTERVAL: Final = 240
 MAX_SCAN_INTERVAL: Final = 3600
 # Seconds after a remote command at which the state is re-fetched. The second

@@ -46,14 +46,14 @@
     "step": {
       "init": {
         "title": "MyŠkoda-Optionen",
-        "description": "Die API erlaubt etwa 20 Anfragen pro Stunde und Fahrzeug. Jede Abfrage, jeder Fernbefehl und die Aktualisierung nach einem Befehl zählen dazu. S-PIN: {spin_state}.",
+        "description": "Die API erlaubt etwa 20 Anfragen pro Stunde und Fahrzeug. Jede Abfrage ist eine Anfrage. Jeder Fernbefehl kostet zwei: den Befehl und eine Aktualisierung 15 Sekunden später; hat das Fahrzeug bis dahin nichts gemeldet, folgt nach 60 Sekunden eine zweite, also drei. Beispiel: 240 s bedeutet Daten alle 4 Minuten und 15 Anfragen für Abfragen, es bleiben 5 für ein bis zwei Befehle. Jede für einen Befehl verbrauchte Anfrage schneidet am Ende der Stunde 4 Minuten Daten ab. S-PIN: {spin_state}.",
         "data": {
           "scan_interval": "Abfrageintervall",
           "spin": "S-PIN (für die Standheizung)",
           "remove_spin": "Gespeicherte S-PIN entfernen"
         },
         "data_description": {
-          "scan_interval": "Sekunden zwischen zwei Abfragen. 300 s entsprechen 12 Anfragen pro Stunde.",
+          "scan_interval": "Sekunden zwischen zwei Abfragen. Standard 900 s (15 Minuten, 4 Anfragen pro Stunde), Minimum 240 s.",
           "spin": "Wird nur zum Starten der Standheizung benötigt. Leer lassen, um die gespeicherte S-PIN zu behalten."
         }
       }

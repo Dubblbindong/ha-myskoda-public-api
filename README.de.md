@@ -75,25 +75,39 @@ hinzufügen; derselbe Schlüssel geht, wenn er beide Fahrzeuge abdeckt.
 
 <table border="1">
 <tr><th align="left">&nbsp;Option&nbsp;</th><th align="left">&nbsp;Standard&nbsp;</th><th align="left">&nbsp;Hinweis&nbsp;</th></tr>
-<tr><td>&nbsp;Abfrageintervall&nbsp;</td><td align="center">&nbsp;300 s&nbsp;</td><td>&nbsp;Mindestens 240 s. Siehe <i>Rate-Limit</i>.&nbsp;</td></tr>
+<tr><td>&nbsp;Abfrageintervall&nbsp;</td><td align="center">&nbsp;900 s&nbsp;</td><td>&nbsp;15 Minuten. Mindestens 240 s. Siehe <i>Rate-Limit</i>.&nbsp;</td></tr>
 <tr><td>&nbsp;S-PIN&nbsp;</td><td align="center">&nbsp;–&nbsp;</td><td>&nbsp;Nur zum Starten der Standheizung nötig. Wird im Konfigurationseintrag gespeichert.&nbsp;</td></tr>
 </table>
 
 ## Rate-Limit
 
-Die API erlaubt etwa **20 Anfragen pro Stunde und Fahrzeug**. Jede Abfrage,
-jeder Fernbefehl und die Aktualisierung nach einem Befehl zählen. Die
-Integration
+Die API erlaubt etwa **20 Anfragen pro Stunde und Fahrzeug**, und alles
+zählt dagegen:
 
-- fragt standardmäßig alle 5 Minuten ab, also 12 Anfragen pro Stunde,
-- liest die Limit-Header mit und bremst, sobald nur noch zwei Anfragen übrig
-  sind,
-- wartet nach einer 429-Antwort so lange, wie die API vorgibt,
-- zeigt verbleibende Anfragen und Reset-Zeitpunkt als Diagnose-Sensoren.
+- jede Abfrage ist eine Anfrage,
+- jeder Fernbefehl sind **zwei Anfragen**: der Befehl selbst und eine
+  Aktualisierung 15 Sekunden später. Hat das Fahrzeug bis dahin nichts
+  gemeldet, folgt nach 60 Sekunden eine zweite, also **drei**,
+- jeder Druck auf *Aktualisieren* ist eine Anfrage.
 
-Auch der *Aktualisieren*-Button und jeder Befehl verbrauchen Kontingent.
-Automationen, die minütlich abfragen oder schalten, sind daher keine gute
-Idee.
+Das Standard-Abfrageintervall beträgt **15 Minuten**: 4 Anfragen pro Stunde,
+es bleiben 16 für Befehle. In den Optionen lässt es sich bis auf 240
+Sekunden verkürzen, aber dann wird das Budget knapp:
+
+<table border="1">
+<tr><th align="left">&nbsp;Intervall&nbsp;</th><th align="left">&nbsp;Abfragen pro Stunde&nbsp;</th><th align="left">&nbsp;Übrig für Befehle&nbsp;</th><th align="left">&nbsp;Bedeutet&nbsp;</th></tr>
+<tr><td>&nbsp;900 s (Standard)&nbsp;</td><td align="center">4</td><td align="center">16</td><td>&nbsp;5 bis 8 Befehle pro Stunde&nbsp;</td></tr>
+<tr><td>&nbsp;600 s&nbsp;</td><td align="center">6</td><td align="center">14</td><td>&nbsp;4 bis 7 Befehle pro Stunde&nbsp;</td></tr>
+<tr><td>&nbsp;300 s&nbsp;</td><td align="center">12</td><td align="center">8</td><td>&nbsp;2 bis 4 Befehle pro Stunde&nbsp;</td></tr>
+<tr><td>&nbsp;240 s (Minimum)&nbsp;</td><td align="center">15</td><td align="center">5</td><td>&nbsp;Daten alle 4 Minuten, 1 bis 2 Befehle; jede für einen Befehl verbrauchte Anfrage schneidet am Ende der Stunde 4 Minuten Daten ab&nbsp;</td></tr>
+</table>
+
+Geht das Kontingent zur Neige, fällt die Integration nicht aus: Sie liest
+die Limit-Header mit, stoppt bei zwei verbleibenden Anfragen die Abfragen
+bis zum Reset der Stunde und wartet nach einer 429-Antwort so lange, wie die
+API vorgibt. Verbleibende Anfragen und Reset-Zeitpunkt sind
+Diagnose-Sensoren. Automationen, die alle paar Minuten abfragen oder
+schalten, sind keine gute Idee.
 
 ## Aktionen
 

@@ -83,7 +83,8 @@ Home Assistant, which they restart themselves.
   `RateLimit-*` and `X-API-Key-Expires-At` headers of every response, errors
   included.
 * `coordinator.py` is a `DataUpdateCoordinator` per vehicle. It polls every
-  `scan_interval` (default 300 s, minimum 240 s), stretches the interval when
+  `scan_interval` (default 900 s, minimum 240 s; a command costs 2 to 3
+  requests of the 20 per hour), stretches the interval when
   two or fewer requests remain, backs off after a 429, raises
   `ConfigEntryAuthFailed` on key problems and opens a repair issue a week
   before the key expires. `async_execute_command()` wraps remote commands,
