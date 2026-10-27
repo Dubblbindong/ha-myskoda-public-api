@@ -10,5 +10,5 @@
   "issue_tracker": "https://github.com/Dubblbindong/ha-myskoda-public-api/issues",
   "loggers": ["custom_components.myskoda_public_api"],
   "requirements": [],
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
