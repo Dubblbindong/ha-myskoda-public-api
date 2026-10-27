@@ -191,6 +191,11 @@ Passwort wird nicht gespeichert.
 * **Nur für den persönlichen Gebrauch** gemäß den Bedingungen von Škoda; keine
   Verbindung zu Škoda Auto.
 
+## Contributing and security
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) (including the policy on AI tools) and
+[SECURITY.md](SECURITY.md) for reporting vulnerabilities privately.
+
 ## License
 
 [MIT](LICENSE)
