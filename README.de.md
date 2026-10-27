@@ -18,23 +18,16 @@ English documentation: [README.md](README.md)
 
 Es werden nur Entitäten angelegt, die dein Fahrzeug tatsächlich meldet.
 
-- **Batterie und Laden:** Ladezustand, elektrische Reichweite, Ladestatus,
-  AC/DC, Ladeleistung und -geschwindigkeit, Restzeit, voll geladen um,
-  Stecker angeschlossen und verriegelt, Ladeschalter, Ladelimit-Regler
-  (50 bis 100 %), Lademodus, Batterieschonmodus, maximaler Ladestrom,
-  aktuelles Ladeprofil
-- **Verbrenner:** Tankfüllstand, Gesamtreichweite, Reichweite je Antrieb,
-  AdBlue-Reichweite, Antriebsart
-- **Status:** Verriegelung, Türen, Fenster, Licht, Kofferraum, Motorhaube,
-  Schiebedach, Kilometerstand
-- **Position:** Standort-Tracker mit letzter Parkposition und aufgelöster
-  Adresse, Parkstatus
-- **Klima:** Klima-Entität mit Zieltemperatur, Klimatisierungsstatus,
-  Scheibenheizung vorn und hinten, Schalter für Standheizung und
-  Standlüftung
-- **Fahrzeug:** Fahrzeugbild, Kennzeichen
-- **Diagnose:** verbleibende API-Anfragen, Zeitpunkt des Limit-Resets,
-  Ablauf des API-Schlüssels, Zeitstempel der Daten, Aktualisieren-Button
+<table border="1" width="100%">
+<tr><th align="left" width="22%">&nbsp;Bereich&nbsp;</th><th align="left">&nbsp;Entitäten&nbsp;</th></tr>
+<tr><td valign="top">&nbsp;<b>Batterie und Laden</b>&nbsp;</td><td>&nbsp;Ladezustand, elektrische Reichweite, Ladestatus, AC/DC, Ladeleistung und -geschwindigkeit, Restzeit, voll geladen um, Stecker angeschlossen und verriegelt, Ladeschalter, Ladelimit-Regler (50 bis 100 %), Lademodus, Batterieschonmodus, maximaler Ladestrom, aktuelles Ladeprofil&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;<b>Verbrenner</b>&nbsp;</td><td>&nbsp;Tankfüllstand, Gesamtreichweite, Reichweite je Antrieb, AdBlue-Reichweite, Antriebsart&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;<b>Status</b>&nbsp;</td><td>&nbsp;Verriegelung, Türen, Fenster, Licht, Kofferraum, Motorhaube, Schiebedach, Kilometerstand, Verriegelungsstatus&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;<b>Position</b>&nbsp;</td><td>&nbsp;Standort-Tracker mit letzter Parkposition und aufgelöster Adresse, Parkstatus&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;<b>Klima</b>&nbsp;</td><td>&nbsp;Klima-Entität mit Zieltemperatur, Klimatisierungsstatus, Scheibenheizung vorn und hinten, Schalter und Status für Standheizung und Standlüftung&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;<b>Fahrzeug</b>&nbsp;</td><td>&nbsp;Fahrzeugbild, Kennzeichen&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;<b>Diagnose</b>&nbsp;</td><td>&nbsp;verbleibende API-Anfragen, Zeitpunkt des Limit-Resets, Ablauf des API-Schlüssels, Zeitstempel der Daten, Aktualisieren-Button&nbsp;</td></tr>
+</table>
 
 **Fernbefehle:** Laden starten und stoppen, Ladelimit setzen, Lademodus
 wechseln, Klimatisierung, Standheizung und Standlüftung starten und stoppen.
@@ -72,11 +65,13 @@ starten.
 Ein Eintrag ist ein Fahrzeug. Für ein zweites Auto die Integration erneut
 hinzufügen; derselbe Schlüssel geht, wenn er beide Fahrzeuge abdeckt.
 
-**Optionen** (Konfigurieren auf der Integrationsseite)
+### Optionen
 
-- *Abfrageintervall:* standardmäßig 300 s, mindestens 240 s. Siehe
-  Rate-Limit.
-- *S-PIN:* nur zum Starten der Standheizung nötig.
+<table border="1">
+<tr><th align="left">&nbsp;Option&nbsp;</th><th align="left">&nbsp;Standard&nbsp;</th><th align="left">&nbsp;Hinweis&nbsp;</th></tr>
+<tr><td>&nbsp;Abfrageintervall&nbsp;</td><td align="center">&nbsp;300 s&nbsp;</td><td>&nbsp;Mindestens 240 s. Siehe <i>Rate-Limit</i>.&nbsp;</td></tr>
+<tr><td>&nbsp;S-PIN&nbsp;</td><td align="center">&nbsp;–&nbsp;</td><td>&nbsp;Nur zum Starten der Standheizung nötig. Wird im Konfigurationseintrag gespeichert.&nbsp;</td></tr>
+</table>
 
 ## Rate-Limit
 
@@ -96,19 +91,25 @@ Idee.
 
 ## Aktionen
 
-**`myskoda_public_api.start_air_conditioning`**
+### `myskoda_public_api.start_air_conditioning`
 
-- `device_id` (Pflicht): das Fahrzeug
-- `temperature`: Ziel-Innenraumtemperatur in °C, 16 bis 30
-- `without_external_power`: Klimatisierung auch ohne Ladekabel erlauben
+<table border="1">
+<tr><th align="left">&nbsp;Feld&nbsp;</th><th align="left">&nbsp;Pflicht&nbsp;</th><th align="left">&nbsp;Beschreibung&nbsp;</th></tr>
+<tr><td>&nbsp;<code>device_id</code>&nbsp;</td><td align="center">ja</td><td>&nbsp;Das Fahrzeug&nbsp;</td></tr>
+<tr><td>&nbsp;<code>temperature</code>&nbsp;</td><td align="center">nein</td><td>&nbsp;Ziel-Innenraumtemperatur in °C, 16 bis 30&nbsp;</td></tr>
+<tr><td>&nbsp;<code>without_external_power</code>&nbsp;</td><td align="center">nein</td><td>&nbsp;Klimatisierung auch ohne Ladekabel erlauben&nbsp;</td></tr>
+</table>
 
-**`myskoda_public_api.start_auxiliary_heating`**
+### `myskoda_public_api.start_auxiliary_heating`
 
-- `device_id` (Pflicht): das Fahrzeug
-- `duration`: Laufzeit in Minuten
-- `start_mode`: `heating` oder `ventilation`
-- `temperature`: Ziel-Innenraumtemperatur in °C
-- `spin`: S-PIN, sonst wird die aus den Optionen verwendet
+<table border="1">
+<tr><th align="left">&nbsp;Feld&nbsp;</th><th align="left">&nbsp;Pflicht&nbsp;</th><th align="left">&nbsp;Beschreibung&nbsp;</th></tr>
+<tr><td>&nbsp;<code>device_id</code>&nbsp;</td><td align="center">ja</td><td>&nbsp;Das Fahrzeug&nbsp;</td></tr>
+<tr><td>&nbsp;<code>duration</code>&nbsp;</td><td align="center">nein</td><td>&nbsp;Laufzeit in Minuten&nbsp;</td></tr>
+<tr><td>&nbsp;<code>start_mode</code>&nbsp;</td><td align="center">nein</td><td>&nbsp;<code>heating</code> oder <code>ventilation</code>&nbsp;</td></tr>
+<tr><td>&nbsp;<code>temperature</code>&nbsp;</td><td align="center">nein</td><td>&nbsp;Ziel-Innenraumtemperatur in °C&nbsp;</td></tr>
+<tr><td>&nbsp;<code>spin</code>&nbsp;</td><td align="center">nein</td><td>&nbsp;S-PIN, sonst wird die aus den Optionen verwendet&nbsp;</td></tr>
+</table>
 
 Für den Alltag reicht die Klima-Entität: Eine gesetzte Temperatur wird
 gespeichert und beim nächsten *Einschalten* verwendet; läuft die

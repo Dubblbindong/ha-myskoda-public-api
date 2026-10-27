@@ -22,23 +22,16 @@ Deutsche Anleitung: [README.de.md](README.de.md)
 
 Only entities your vehicle actually reports are created.
 
-- **Battery and charging:** state of charge, electric range, charging state,
-  AC/DC, charging power and rate, remaining time, fully charged at, plug
-  connected and locked, charging switch, charging limit slider (50 to 100 %),
-  charge mode, battery care mode, maximum charging current, current charging
-  profile
-- **Combustion engine:** fuel level, total range, range per engine, AdBlue
-  range, car type
-- **Status:** locked, doors, windows, lights, trunk, bonnet, sunroof,
-  odometer
-- **Position:** device tracker with the last parking position and the
-  resolved address, parking state
-- **Climate:** climate entity with target temperature, air conditioning
-  state, window heating front and rear, auxiliary heating switch, active
-  ventilation switch
-- **Vehicle:** render image, license plate
-- **Diagnostics:** API requests remaining, time the quota resets, API key
-  expiry, data timestamps, refresh button
+<table border="1" width="100%">
+<tr><th align="left" width="22%">&nbsp;Area&nbsp;</th><th align="left">&nbsp;Entities&nbsp;</th></tr>
+<tr><td valign="top">&nbsp;<b>Battery and charging</b>&nbsp;</td><td>&nbsp;state of charge, electric range, charging state, AC/DC, charging power and rate, remaining time, fully charged at, plug connected and locked, charging switch, charging limit slider (50 to 100 %), charge mode, battery care mode, maximum charging current, current charging profile&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;<b>Combustion engine</b>&nbsp;</td><td>&nbsp;fuel level, total range, range per engine, AdBlue range, car type&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;<b>Status</b>&nbsp;</td><td>&nbsp;locked, doors, windows, lights, trunk, bonnet, sunroof, odometer, doors lock state&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;<b>Position</b>&nbsp;</td><td>&nbsp;device tracker with the last parking position and the resolved address, parking state&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;<b>Climate</b>&nbsp;</td><td>&nbsp;climate entity with target temperature, air conditioning state, window heating front and rear, auxiliary heating switch and state, active ventilation switch and state&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;<b>Vehicle</b>&nbsp;</td><td>&nbsp;render image, license plate&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;<b>Diagnostics</b>&nbsp;</td><td>&nbsp;API requests remaining, time the quota resets, API key expiry, data timestamps, refresh button&nbsp;</td></tr>
+</table>
 
 **Remote commands:** start and stop charging, set the charging limit, change
 the charge mode, start and stop air conditioning, auxiliary heating and
@@ -74,10 +67,13 @@ Copy the folder `custom_components/myskoda_public_api` into the
 One entry is one vehicle. Add the integration again for a second car; the
 same key works if it covers both vehicles.
 
-**Options** (Configure on the integration page)
+### Options
 
-- *Polling interval:* 300 s by default, 240 s minimum. See rate limits.
-- *S-PIN:* only needed to start the auxiliary heater.
+<table border="1">
+<tr><th align="left">&nbsp;Option&nbsp;</th><th align="left">&nbsp;Default&nbsp;</th><th align="left">&nbsp;Notes&nbsp;</th></tr>
+<tr><td>&nbsp;Polling interval&nbsp;</td><td align="center">&nbsp;300 s&nbsp;</td><td>&nbsp;Minimum 240 s. See <i>Rate limits</i>.&nbsp;</td></tr>
+<tr><td>&nbsp;S-PIN&nbsp;</td><td align="center">&nbsp;–&nbsp;</td><td>&nbsp;Only needed to start the auxiliary heater. Stored in the config entry.&nbsp;</td></tr>
+</table>
 
 ## Rate limits
 
@@ -95,19 +91,25 @@ that poll or toggle something every minute.
 
 ## Actions
 
-**`myskoda_public_api.start_air_conditioning`**
+### `myskoda_public_api.start_air_conditioning`
 
-- `device_id` (required): the vehicle
-- `temperature`: target cabin temperature in °C, 16 to 30
-- `without_external_power`: allow climatisation while unplugged
+<table border="1">
+<tr><th align="left">&nbsp;Field&nbsp;</th><th align="left">&nbsp;Required&nbsp;</th><th align="left">&nbsp;Description&nbsp;</th></tr>
+<tr><td>&nbsp;<code>device_id</code>&nbsp;</td><td align="center">yes</td><td>&nbsp;The vehicle&nbsp;</td></tr>
+<tr><td>&nbsp;<code>temperature</code>&nbsp;</td><td align="center">no</td><td>&nbsp;Target cabin temperature in °C, 16 to 30&nbsp;</td></tr>
+<tr><td>&nbsp;<code>without_external_power</code>&nbsp;</td><td align="center">no</td><td>&nbsp;Allow climatisation while unplugged&nbsp;</td></tr>
+</table>
 
-**`myskoda_public_api.start_auxiliary_heating`**
+### `myskoda_public_api.start_auxiliary_heating`
 
-- `device_id` (required): the vehicle
-- `duration`: run time in minutes
-- `start_mode`: `heating` or `ventilation`
-- `temperature`: target cabin temperature in °C
-- `spin`: S-PIN, falls back to the one stored in the options
+<table border="1">
+<tr><th align="left">&nbsp;Field&nbsp;</th><th align="left">&nbsp;Required&nbsp;</th><th align="left">&nbsp;Description&nbsp;</th></tr>
+<tr><td>&nbsp;<code>device_id</code>&nbsp;</td><td align="center">yes</td><td>&nbsp;The vehicle&nbsp;</td></tr>
+<tr><td>&nbsp;<code>duration</code>&nbsp;</td><td align="center">no</td><td>&nbsp;Run time in minutes&nbsp;</td></tr>
+<tr><td>&nbsp;<code>start_mode</code>&nbsp;</td><td align="center">no</td><td>&nbsp;<code>heating</code> or <code>ventilation</code>&nbsp;</td></tr>
+<tr><td>&nbsp;<code>temperature</code>&nbsp;</td><td align="center">no</td><td>&nbsp;Target cabin temperature in °C&nbsp;</td></tr>
+<tr><td>&nbsp;<code>spin</code>&nbsp;</td><td align="center">no</td><td>&nbsp;S-PIN, falls back to the one stored in the options&nbsp;</td></tr>
+</table>
 
 The climate entity covers the everyday case: setting a temperature stores it
 and applies it with the next *turn on*; while the air conditioning runs it is
