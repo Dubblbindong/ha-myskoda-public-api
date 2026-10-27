@@ -4,7 +4,7 @@
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://hacs.xyz/docs/faq/custom_repositories/)
 [![Validate](https://github.com/Dubblbindong/ha-myskoda-public-api/actions/workflows/validate.yml/badge.svg)](https://github.com/Dubblbindong/ha-myskoda-public-api/actions/workflows/validate.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Dubblbindong/ha-myskoda-public-api/blob/main/LICENSE)
 
 Connect your Škoda to Home Assistant through the **official
 [MyŠkoda Public API](https://public.api.connect.skoda-auto.cz/docs)**.
