@@ -26,9 +26,6 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
-          # The domain is not listed in home-assistant/brands; that is only
-          # required for inclusion in the HACS default repository list.
-          ignore: brands
 
   checks:
     name: Lint, client test, translations
