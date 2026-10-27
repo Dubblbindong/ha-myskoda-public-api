@@ -1,0 +1,56 @@
+start_air_conditioning:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          integration: myskoda_public_api
+    temperature:
+      required: false
+      selector:
+        number:
+          min: 16
+          max: 30
+          step: 0.5
+          unit_of_measurement: "°C"
+    without_external_power:
+      required: false
+      selector:
+        boolean:
+
+start_auxiliary_heating:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          integration: myskoda_public_api
+    duration:
+      required: false
+      selector:
+        number:
+          min: 1
+          max: 60
+          step: 1
+          unit_of_measurement: "min"
+    start_mode:
+      required: false
+      selector:
+        select:
+          options:
+            - heating
+            - ventilation
+          translation_key: aux_heating_start_mode
+    temperature:
+      required: false
+      selector:
+        number:
+          min: 16
+          max: 30
+          step: 0.5
+          unit_of_measurement: "°C"
+    spin:
+      required: false
+      selector:
+        text:
+          type: password

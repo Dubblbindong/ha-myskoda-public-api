@@ -1,0 +1,14 @@
+{
+  "domain": "myskoda_public_api",
+  "name": "MyŠkoda Public API",
+  "codeowners": ["@Dubblbindong"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/Dubblbindong/ha-myskoda-public-api",
+  "integration_type": "device",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/Dubblbindong/ha-myskoda-public-api/issues",
+  "loggers": ["custom_components.myskoda_public_api"],
+  "requirements": [],
+  "version": "0.1.0"
+}

@@ -1,0 +1,353 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add a Škoda vehicle",
+        "description": "Create an API key in the MyŠkoda app ({api_keys_url}), select the vehicle it may access and enter the key together with the VIN of that vehicle. The key is checked with a single API request.",
+        "data": {
+          "api_key": "API key",
+          "vin": "VIN (vehicle identification number)"
+        },
+        "data_description": {
+          "api_key": "Key created in the MyŠkoda app. Keys expire; the integration asks for a new one when needed.",
+          "vin": "17 characters, as shown in the MyŠkoda app or in the registration document."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Renew the API key",
+        "description": "The API key for {name} has expired or is no longer valid. Create a new key in the MyŠkoda app ({api_keys_url}) and enter it here.",
+        "data": {
+          "api_key": "API key"
+        }
+      },
+      "reconfigure": {
+        "title": "Replace the API key",
+        "description": "Enter a new API key for {name}. Create keys in the MyŠkoda app ({api_keys_url}).",
+        "data": {
+          "api_key": "API key"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the MyŠkoda Public API.",
+      "invalid_auth": "The API key was rejected, has expired or does not cover this vehicle.",
+      "invalid_vin": "A VIN has 17 characters and contains no I, O or Q.",
+      "vehicle_not_found": "No vehicle with this VIN was found for the API key.",
+      "rate_limited": "The API rate limit for this vehicle is exhausted. Wait a while and try again.",
+      "unknown": "Unexpected error, see the log for details."
+    },
+    "abort": {
+      "already_configured": "This vehicle is already configured.",
+      "reauth_successful": "The API key was updated.",
+      "reconfigure_successful": "The API key was updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "MyŠkoda options",
+        "description": "The API allows about 20 requests per hour and vehicle. Every poll, every remote command and the refresh after a command count against that quota. S-PIN: {spin_state}.",
+        "data": {
+          "scan_interval": "Polling interval",
+          "spin": "S-PIN (for the auxiliary heater)",
+          "remove_spin": "Remove the stored S-PIN"
+        },
+        "data_description": {
+          "scan_interval": "Seconds between two polls. 300 s equals 12 requests per hour.",
+          "spin": "Only needed to start the auxiliary heater. Leave empty to keep the stored S-PIN."
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "locked": { "name": "Vehicle lock" },
+      "doors": { "name": "Doors" },
+      "windows": { "name": "Windows" },
+      "lights": { "name": "Lights" },
+      "trunk": { "name": "Trunk" },
+      "bonnet": { "name": "Bonnet" },
+      "sunroof": { "name": "Sunroof" },
+      "plug_connected": { "name": "Charging plug" },
+      "plug_locked": { "name": "Charging plug lock" },
+      "charging": { "name": "Charging" },
+      "in_saved_location": { "name": "At saved charging location" },
+      "air_conditioning_running": { "name": "Air conditioning running" },
+      "window_heating_front": { "name": "Front window heating" },
+      "window_heating_rear": { "name": "Rear window heating" },
+      "window_heating_enabled": { "name": "Window heating enabled" },
+      "ac_without_external_power": { "name": "Air conditioning without external power" },
+      "ac_at_unlock": { "name": "Air conditioning at unlock" },
+      "auxiliary_heating_running": { "name": "Auxiliary heating running" },
+      "active_ventilation_running": { "name": "Active ventilation running" }
+    },
+    "button": {
+      "refresh": { "name": "Refresh" }
+    },
+    "climate": {
+      "air_conditioning": { "name": "Air conditioning" }
+    },
+    "device_tracker": {
+      "location": { "name": "Location" }
+    },
+    "image": {
+      "vehicle_image": { "name": "Image" }
+    },
+    "number": {
+      "charging_limit": { "name": "Charging limit" }
+    },
+    "select": {
+      "charge_mode": {
+        "name": "Charge mode",
+        "state": {
+          "manual": "Manual",
+          "timer": "Timer",
+          "timer_charging_with_climatisation": "Timer with climatisation",
+          "preferred_charging_times": "Preferred charging times",
+          "only_own_current": "Only own current",
+          "immediate_discharging": "Immediate discharging",
+          "home_storage_charging": "Home storage charging"
+        }
+      }
+    },
+    "sensor": {
+      "battery_level": { "name": "Battery" },
+      "electric_range": { "name": "Electric range" },
+      "charging_state": {
+        "name": "Charging state",
+        "state": {
+          "connect_cable": "Connect cable",
+          "charging": "Charging",
+          "conserving": "Conserving",
+          "ready_for_charging": "Ready for charging",
+          "discharging": "Discharging",
+          "charging_interrupted": "Charging interrupted"
+        }
+      },
+      "charge_type": {
+        "name": "Charge type",
+        "state": {
+          "ac": "AC",
+          "dc": "DC",
+          "off": "Off"
+        }
+      },
+      "charging_power": { "name": "Charging power" },
+      "charging_rate": { "name": "Charging rate" },
+      "remaining_charging_time": { "name": "Remaining charging time" },
+      "fully_charged_at": { "name": "Fully charged at" },
+      "charging_limit": { "name": "Charging limit" },
+      "charge_mode": {
+        "name": "Charge mode",
+        "state": {
+          "manual": "Manual",
+          "timer": "Timer",
+          "timer_charging_with_climatisation": "Timer with climatisation",
+          "preferred_charging_times": "Preferred charging times",
+          "only_own_current": "Only own current",
+          "immediate_discharging": "Immediate discharging",
+          "home_storage_charging": "Home storage charging"
+        }
+      },
+      "battery_care_mode": {
+        "name": "Battery care mode",
+        "state": {
+          "activated": "Activated",
+          "deactivated": "Deactivated"
+        }
+      },
+      "battery_care_target": { "name": "Battery care target" },
+      "max_charge_current": {
+        "name": "Maximum charging current",
+        "state": {
+          "reduced": "Reduced",
+          "maximum": "Maximum"
+        }
+      },
+      "max_charge_current_ampere": { "name": "Maximum charging current (A)" },
+      "auto_unlock_plug": {
+        "name": "Auto unlock plug",
+        "state": {
+          "permanent": "Permanent",
+          "off": "Off"
+        }
+      },
+      "charging_updated_at": { "name": "Charging data updated" },
+      "current_charging_profile": { "name": "Current charging profile" },
+      "fuel_level": { "name": "Fuel level" },
+      "total_range": { "name": "Total range" },
+      "primary_engine_range": { "name": "Primary engine range" },
+      "secondary_engine_range": { "name": "Secondary engine range" },
+      "adblue_range": { "name": "AdBlue range" },
+      "car_type": {
+        "name": "Car type",
+        "state": {
+          "hybrid": "Hybrid",
+          "gasoline": "Petrol",
+          "diesel": "Diesel",
+          "cng": "CNG",
+          "lpg": "LPG"
+        }
+      },
+      "fuel_updated_at": { "name": "Fuel data updated" },
+      "odometer": { "name": "Odometer" },
+      "doors_lock_state": {
+        "name": "Doors lock state",
+        "state": {
+          "yes": "Locked",
+          "no": "Unlocked",
+          "opened": "Door open",
+          "trunk_opened": "Trunk open"
+        }
+      },
+      "status_updated_at": { "name": "Status data updated" },
+      "parking_state": {
+        "name": "Parking state",
+        "state": {
+          "parked": "Parked",
+          "in_motion": "In motion"
+        }
+      },
+      "parking_address": { "name": "Parking address" },
+      "air_conditioning_state": {
+        "name": "Air conditioning state",
+        "state": {
+          "off": "Off",
+          "cooling": "Cooling",
+          "heating": "Heating",
+          "heating_auxiliary": "Heating (auxiliary heater)",
+          "ventilation": "Ventilation",
+          "completed": "Completed"
+        }
+      },
+      "ac_target_temperature": { "name": "Air conditioning target temperature" },
+      "ac_target_reached_at": { "name": "Target temperature reached at" },
+      "air_conditioning_updated_at": { "name": "Air conditioning data updated" },
+      "auxiliary_heating_state": {
+        "name": "Auxiliary heating state",
+        "state": {
+          "off": "Off",
+          "preheating": "Preheating",
+          "heating_auxiliary": "Heating",
+          "ventilation": "Ventilation"
+        }
+      },
+      "auxiliary_heating_target_temperature": { "name": "Auxiliary heating target temperature" },
+      "auxiliary_heating_duration": { "name": "Auxiliary heating duration" },
+      "auxiliary_heating_start_mode": {
+        "name": "Auxiliary heating start mode",
+        "state": {
+          "heating": "Heating",
+          "ventilation": "Ventilation"
+        }
+      },
+      "active_ventilation_state": {
+        "name": "Active ventilation state",
+        "state": {
+          "off": "Off",
+          "preheating": "Preheating",
+          "ventilation": "Ventilation"
+        }
+      },
+      "active_ventilation_duration": { "name": "Active ventilation duration" },
+      "license_plate": { "name": "License plate" },
+      "api_requests_remaining": { "name": "API requests remaining" },
+      "api_rate_limit_reset_at": { "name": "API quota resets" },
+      "api_key_expires_at": { "name": "API key expires" }
+    },
+    "switch": {
+      "charging": { "name": "Charging" },
+      "active_ventilation": { "name": "Active ventilation" },
+      "auxiliary_heating": { "name": "Auxiliary heating" }
+    }
+  },
+  "services": {
+    "start_air_conditioning": {
+      "name": "Start air conditioning",
+      "description": "Starts the air conditioning of the vehicle, optionally with a target temperature.",
+      "fields": {
+        "device_id": {
+          "name": "Vehicle",
+          "description": "The vehicle to climatise."
+        },
+        "temperature": {
+          "name": "Target temperature",
+          "description": "Target cabin temperature in °C (16 to 30)."
+        },
+        "without_external_power": {
+          "name": "Allow without external power",
+          "description": "Allow the air conditioning to run while the vehicle is not plugged in."
+        }
+      }
+    },
+    "start_auxiliary_heating": {
+      "name": "Start auxiliary heating",
+      "description": "Starts the auxiliary heater (or its ventilation mode). Requires the S-PIN, either stored in the options or passed here.",
+      "fields": {
+        "device_id": {
+          "name": "Vehicle",
+          "description": "The vehicle to heat."
+        },
+        "duration": {
+          "name": "Duration",
+          "description": "How long the heater runs, in minutes."
+        },
+        "start_mode": {
+          "name": "Mode",
+          "description": "Heating or ventilation."
+        },
+        "temperature": {
+          "name": "Target temperature",
+          "description": "Target cabin temperature in °C (16 to 30)."
+        },
+        "spin": {
+          "name": "S-PIN",
+          "description": "Security PIN of the MyŠkoda account. Overrides the S-PIN stored in the options."
+        }
+      }
+    }
+  },
+  "selector": {
+    "aux_heating_start_mode": {
+      "options": {
+        "heating": "Heating",
+        "ventilation": "Ventilation"
+      }
+    }
+  },
+  "exceptions": {
+    "auth_failed": {
+      "message": "The API key was rejected. Renew it in the integration settings."
+    },
+    "vehicle_busy": {
+      "message": "The vehicle is not accepting requests right now. Try again in {retry_after} seconds."
+    },
+    "rate_limited": {
+      "message": "The API rate limit for this vehicle is exhausted. Try again in {retry_after} seconds."
+    },
+    "operation_rejected": {
+      "message": "The vehicle rejected the command: {detail}"
+    },
+    "command_failed": {
+      "message": "The command failed: {detail}"
+    },
+    "spin_required": {
+      "message": "Starting the auxiliary heater requires the S-PIN. Store it in the integration options or pass it to the action."
+    },
+    "device_not_found": {
+      "message": "The device was not found."
+    },
+    "device_not_loaded": {
+      "message": "The device does not belong to a loaded MyŠkoda vehicle."
+    },
+    "operation_not_supported": {
+      "message": "The vehicle does not support the operation {operation}."
+    }
+  },
+  "issues": {
+    "api_key_expiring": {
+      "title": "MyŠkoda API key expires soon",
+      "description": "The API key for {name} expires on {expires_at}. Create a new key in the MyŠkoda app and enter it via \"Reconfigure\" on the integration page, otherwise the integration will ask for it once the key has expired."
+    }
+  }
+}
