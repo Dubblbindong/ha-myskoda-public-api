@@ -49,6 +49,14 @@ before changing anything.
   `vehicles_transport.cars_evs`.
 * The minimum Home Assistant version is set in `hacs.json`. Do not use newer
   core APIs without raising it.
+* README tables are written as HTML (`<table border="1">`, `&nbsp;` at the
+  cell edges, `<code>`/`<b>` instead of markdown inside cells) on purpose:
+  HACS 2.0.5 renders the README with a Home Assistant frontend from January
+  2025 that has no table CSS and strips `style`, `cellpadding` and `class`
+  attributes, so plain markdown tables show up there without borders or
+  spacing. GitHub styles both kinds the same. Keep tables free of blank lines
+  and avoid wide `<pre>` blocks and long inline code, which cannot wrap in the
+  HACS dialog.
 * Commands, issues, pull requests and comments are never sent autonomously;
   see [CONTRIBUTING.md](CONTRIBUTING.md).
 
