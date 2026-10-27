@@ -49,6 +49,10 @@ active ventilation.
 
 **HACS**
 
+[![Open this repository in HACS or the Marketplace of your Home Assistant.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Dubblbindong&repository=ha-myskoda-public-api&category=integration)
+
+Or by hand:
+
 1. HACS → Integrations → menu (⋮) → *Custom repositories*
 2. Repository `Dubblbindong/ha-myskoda-public-api`, category *Integration*
 3. Install *MyŠkoda Public API* and restart Home Assistant.
@@ -59,6 +63,8 @@ Copy the folder `custom_components/myskoda_public_api` into the
 `custom_components` folder of your configuration and restart Home Assistant.
 
 ## Setup
+
+[![Open your Home Assistant instance and start setting up the integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=myskoda_public_api)
 
 1. Settings → Devices & services → *Add integration* → *MyŠkoda Public API*
 2. Enter the API key and the VIN of the vehicle. The key is checked with a

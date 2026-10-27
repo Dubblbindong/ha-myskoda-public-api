@@ -45,6 +45,10 @@ wechseln, Klimatisierung, Standheizung und Standlüftung starten und stoppen.
 
 **HACS**
 
+[![Dieses Repository in HACS oder im Marketplace deines Home Assistant öffnen.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Dubblbindong&repository=ha-myskoda-public-api&category=integration)
+
+Oder von Hand:
+
 1. HACS → Integrationen → Menü (⋮) → *Benutzerdefinierte Repositories*
 2. Repository `Dubblbindong/ha-myskoda-public-api`, Kategorie *Integration*
 3. *MyŠkoda Public API* installieren und Home Assistant neu starten.
@@ -56,6 +60,8 @@ Den Ordner `custom_components/myskoda_public_api` in den Ordner
 starten.
 
 ## Einrichtung
+
+[![Home Assistant öffnen und die Einrichtung der Integration starten.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=myskoda_public_api)
 
 1. Einstellungen → Geräte & Dienste → *Integration hinzufügen* →
    *MyŠkoda Public API*
